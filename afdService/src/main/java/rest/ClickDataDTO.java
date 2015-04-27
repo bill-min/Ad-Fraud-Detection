@@ -2,14 +2,20 @@ package rest;
 
 import java.sql.Timestamp;
 
+import org.hibernate.validator.constraints.Length;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ClickDataDTO {
+	@Length(max = 10)
 	protected String device;
+	@Length(max = 50)
 	protected String publisherId;
+	@Length(max = 50)
 	protected String campaignId;
 	protected Timestamp timestamp_sent;
+	@Length(max = 10)
 	protected String publisherChannelType;
 
 	public ClickDataDTO() {
