@@ -30,11 +30,17 @@ public class ClickController {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public @ResponseBody boolean addInformation(HttpServletRequest request,
-			@RequestBody ClickDataDTO ti) {
+			 @RequestBody ClickDataDTO ti) {
 		String ipAddress = Util.getClientIP(request);
 		Timestamp timestamp_received = new Timestamp(new Date().getTime());
 		//Referer id, this value can be changed by front end script
 		String refererid = request.getHeader("Referer");
+		//TODO validation
+		if(ti.getDevice().length() > 10 || ti.getCampaignId().length() > 50
+				|| ti.getPublisherChannelType().length() > 10 
+				|| ti.getPublisherId().length() > 50){
+			return false;
+		}
 		clickdataMgr.addClickData(
 				ipAddress, 
 				ti.device, 
