@@ -18,6 +18,8 @@ public class GeoIP {
 	private static CityResponse response = null;
 
 	private static DatabaseReader reader = null;
+	
+	private static String EXCEPTION="UNKNOWN";
 
 	public static boolean loadDB(String path) {
 		try {
@@ -53,31 +55,31 @@ public class GeoIP {
 
 	public static String getCountryCode() {
 		if (response == null)
-			return "ERROR";
+			return EXCEPTION;
 		return response.getCountry().getIsoCode();
 	}
 
 	public static String getCountryName() {
 		if (response == null)
-			return "ERROR";
+			return EXCEPTION;
 		return response.getCountry().getName();
 	}
 
 	public static String getPostal() {
 		if (response == null)
-			return "ERROR";
+			return EXCEPTION;
 		return response.getPostal().getCode();
 	}
 
 	public static String getCity() {
 		if (response == null)
-			return "ERROR";
+			return EXCEPTION;
 		return response.getCity().getName();
 	}
 
 	public static String getLatitudeLongitude() {
 		if (response == null)
-			return "ERROR";
+			return EXCEPTION;
 		return response.getLocation().getLatitude() + ","
 				+ response.getLocation().getLongitude();
 	}
