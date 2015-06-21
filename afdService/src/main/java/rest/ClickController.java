@@ -86,7 +86,9 @@ public class ClickController {
 	@RequestMapping(method = RequestMethod.POST)
 	public @ResponseBody boolean addInformation(HttpServletRequest request,
 			@Valid @RequestBody ClickDataDTO ti) {
-		String ipAddress = Util.getClientIP(request);
+//		String ipAddress = Util.getClientIP(request);
+		//for test
+		String ipAddress = Util.getRandomIP();
 		Timestamp timestamp_received = new Timestamp(new Date().getTime());
 		//Referer id, this value can be changed by front end script
 		String refererid = request.getHeader("Referer");
