@@ -7,6 +7,7 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 
 public class Util {
+	
 
 	public static String getClientIP(HttpServletRequest httpservletrequest) {
 		if (httpservletrequest == null)
