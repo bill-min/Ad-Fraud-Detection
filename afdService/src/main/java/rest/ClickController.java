@@ -20,11 +20,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import util.AppConfig;
+import util.Exhibition;
 import util.Util;
 
 @RestController
@@ -78,17 +79,25 @@ public class ClickController {
 	
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ClickDataDTO getInformation(
-			@RequestParam(value = "id", defaultValue = "-1") long tiId) {
-		return new ClickDataDTO();
+	public String getInformation() {
+		return "Welcome to access AFD.";
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public @ResponseBody boolean addInformation(HttpServletRequest request,
 			@Valid @RequestBody ClickDataDTO ti) {
-//		String ipAddress = Util.getClientIP(request);
-		//for test
-		String ipAddress = Util.getRandomIP();
+		
+		String ipAddress = "";
+		if (AppConfig.isRealworldFlag()) {
+			ipAddress = Util.getClientIP(request);
+		}else{
+			ipAddress = Exhibition.getRandomIP();
+			ti.device = Exhibition.getRandomDevice();
+			ti.campaignId = Exhibition.getRandomCampaign();
+			ti.publisherId = Exhibition.getRandomPublisher();
+			ti.publisherChannelType = Exhibition.getRandomPublisherChannelType();
+		}
+		
 		Timestamp timestamp_received = new Timestamp(new Date().getTime());
 		//Referer id, this value can be changed by front end script
 		String refererid = request.getHeader("Referer");
