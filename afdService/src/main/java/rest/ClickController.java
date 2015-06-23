@@ -84,7 +84,7 @@ public class ClickController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public @ResponseBody boolean addInformation(HttpServletRequest request,
+	public @ResponseBody String addInformation(HttpServletRequest request,
 			@Valid @RequestBody ClickDataDTO ti) {
 		
 		String ipAddress = "";
@@ -110,6 +110,7 @@ public class ClickController {
 				timestamp_received, 
 				ti.publisherChannelType, 
 				refererid);
+		
 		log.info(
 				"ip=" + ipAddress
 				+ ", device=" + ti.getDevice()
@@ -120,6 +121,6 @@ public class ClickController {
 				+ ", publisher channel type="+ti.getPublisherChannelType()
 				);
 		
-		return true;
+		return "success.";
 	}
 }

@@ -1,12 +1,17 @@
 package rest;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name="clickdata")
-public class ClickData {
+public class ClickData implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue
 	@Column(name="id")
 	protected long id;

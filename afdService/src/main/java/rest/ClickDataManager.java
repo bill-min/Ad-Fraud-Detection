@@ -10,12 +10,17 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import redis.RedisService;
 import util.GeoIP;
 
 public class ClickDataManager {
 
 	private static SessionFactory factory = null;
+	//这里已经配置好,属于一个redis的服务接口
+	RedisService redisService = (RedisService) ((ApplicationContext)new ClassPathXmlApplicationContext("classpath:spring-context.xml")).getBean("redisService");
 
 	private SessionFactory createSessionFactory() {
 		Configuration configuration = null;
@@ -70,9 +75,10 @@ public class ClickDataManager {
 		Session session = factory.openSession();
 		Transaction trans = null;
 		Long id_data = null;
+		ClickData click = null;
 		try{
 			trans = session.beginTransaction();
-			ClickData click = new ClickData();
+			click = new ClickData();
 			click.setIpAddress(ipAddress);
 			click.setDevice(device);
 			click.setPublisherId(publisherId);
@@ -93,6 +99,11 @@ public class ClickDataManager {
 		}finally{
 			session.close();
 		}
+		//save to redis
+		if(id_data != null) {
+			redisService.set("data"+id_data, click);
+		}
+		
 		return id_data;
 	}
 	

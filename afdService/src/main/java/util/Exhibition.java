@@ -29,21 +29,21 @@ public class Exhibition {
 	private static String[] devicesStrings = {"Desktop","Tablet","Mobile","Vehicle","SmartTV","IPTV"};
 	private static String[] publisherStrings = {"Pepsi","IBM","Microsoft","Baidu","Google","AceOnion","Tencent","Amazon","Facebook"};
 	private static String[] campaignIdStrings = {"2015Fall","2016Spring","2016Fall","2016Winter","2017Spring"};
-	private static String[] publisherChannelTypeStrings = {"NewYorkTimes","CNN","WSJ","YahooNews","Washington Post"};
+	private static String[] publisherChannelTypeStrings = {"NYT","CNN","WSJ","YahooNews"};
 	public static String getRandomDevice() {
-		return devicesStrings[randInt(0, devicesStrings.length)];
+		return devicesStrings[randInt(0, devicesStrings.length-1)];
 	}
 	
 	public static String getRandomPublisher() {
-		return publisherStrings[randInt(0, publisherStrings.length)];
+		return publisherStrings[randInt(0, publisherStrings.length-1)];
 	}
 	
 	public static String getRandomCampaign() {
-		return campaignIdStrings[randInt(0, campaignIdStrings.length)];
+		return campaignIdStrings[randInt(0, campaignIdStrings.length-1)];
 	}
 	
 	public static String getRandomPublisherChannelType() {
-		return publisherChannelTypeStrings[randInt(0, publisherChannelTypeStrings.length)];
+		return publisherChannelTypeStrings[randInt(0, publisherChannelTypeStrings.length-1)];
 	}
 
 	public static int randInt(int min, int max) {
