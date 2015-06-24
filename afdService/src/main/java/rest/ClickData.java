@@ -156,14 +156,17 @@ public class ClickData implements Serializable{
 
 	@Override
 	public String toString() {
-		return " ['id':'" + id + "', 'ipAddress':'" + ipAddress
+		return " {'id':'" + id + "', 'ipAddress':'" + ipAddress
 				+ "', 'device':'" + device + "', 'publisherId':'" + publisherId
 				+ "', 'campaignId':'" + campaignId + "', 'country':'" + country
 				+ "', 'city':'" + city + "', 'timestamp_sent':'"
 				+ timestamp_sent + "', 'timestamp_received':'"
 				+ timestamp_received + "', 'publisherChannelType':'"
-				+ publisherChannelType + "', 'referrerId':'" + referrerId + "']";
+				+ publisherChannelType + "', 'referrerId':'" + referrerId
+				+ "'}";
 	}
+
+	
 
 	
 
