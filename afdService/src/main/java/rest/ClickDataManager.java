@@ -13,15 +13,15 @@ import org.hibernate.service.ServiceRegistry;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import redis.RedisService;
+import redis.ClickDataStorage;
 import util.GeoIP;
 
 public class ClickDataManager {
 
 	private static SessionFactory factory = null;
 	//这里已经配置好,属于一个redis的服务接口
-	RedisService redisService = (RedisService) ((ApplicationContext)new ClassPathXmlApplicationContext("classpath:spring-context.xml")).getBean("redisService");
-
+	ClickDataStorage clickStorage = (ClickDataStorage) ((ApplicationContext)new ClassPathXmlApplicationContext("classpath:spring-context.xml")).getBean("clickStorage");;
+	
 	private SessionFactory createSessionFactory() {
 		Configuration configuration = null;
 		ServiceRegistry serviceRegistry = null;
@@ -101,7 +101,9 @@ public class ClickDataManager {
 		}
 		//save to redis
 		if(id_data != null) {
-			redisService.set("data"+id_data, click);
+			clickStorage.add(click);
+			//redisService.set("data"+id_data, click);
+			//redisService.addUserId(String.valueOf(id_data));
 		}
 		
 		return id_data;

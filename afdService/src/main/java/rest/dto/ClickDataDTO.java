@@ -1,4 +1,4 @@
-package rest;
+package rest.dto;
 
 import java.sql.Timestamp;
 

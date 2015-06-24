@@ -1,4 +1,4 @@
-package rest;
+package rest.dto;
 public class FieldErrorDTO {
  
     private String field;

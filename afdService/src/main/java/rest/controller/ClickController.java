@@ -1,4 +1,4 @@
-package rest;
+package rest.controller;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -24,6 +24,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import rest.ClickDataManager;
+import rest.dto.ClickDataDTO;
+import rest.dto.ValidationErrorDTO;
 import util.AppConfig;
 import util.Exhibition;
 import util.Util;
@@ -92,10 +95,10 @@ public class ClickController {
 			ipAddress = Util.getClientIP(request);
 		}else{
 			ipAddress = Exhibition.getRandomIP();
-			ti.device = Exhibition.getRandomDevice();
-			ti.campaignId = Exhibition.getRandomCampaign();
-			ti.publisherId = Exhibition.getRandomPublisher();
-			ti.publisherChannelType = Exhibition.getRandomPublisherChannelType();
+			ti.setDevice(Exhibition.getRandomDevice());
+			ti.setCampaignId(Exhibition.getRandomCampaign());
+			ti.setPublisherId(Exhibition.getRandomPublisher());
+			ti.setPublisherChannelType(Exhibition.getRandomPublisherChannelType());
 		}
 		
 		Timestamp timestamp_received = new Timestamp(new Date().getTime());
@@ -103,12 +106,12 @@ public class ClickController {
 		String refererid = request.getHeader("Referer");
 		clickdataMgr.addClickData(
 				ipAddress, 
-				ti.device, 
-				ti.publisherId, 
-				ti.campaignId, 
-				ti.timestamp_sent, 
+				ti.getDevice(), 
+				ti.getPublisherId(), 
+				ti.getCampaignId(), 
+				ti.getTimestamp_sent(), 
 				timestamp_received, 
-				ti.publisherChannelType, 
+				ti.getPublisherChannelType(), 
 				refererid);
 		
 		log.info(
